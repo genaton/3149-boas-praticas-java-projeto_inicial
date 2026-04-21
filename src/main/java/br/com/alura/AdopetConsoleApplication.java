@@ -225,7 +225,7 @@ public class AdopetConsoleApplication {
 
 
     }
-private static void dispararRequisicaoPost(HttpClient client, String uri, JsonObject json) throws IOException, InterruptedException{
+private static HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json) throws IOException, InterruptedException{
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
@@ -233,7 +233,7 @@ private static void dispararRequisicaoPost(HttpClient client, String uri, JsonOb
                 .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
 
     
 }
