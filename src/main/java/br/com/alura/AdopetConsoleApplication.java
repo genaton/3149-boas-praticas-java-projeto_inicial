@@ -61,6 +61,7 @@ public class AdopetConsoleApplication {
         }
     }
 
+    //ainda há duplicacao de código nos métodos abaixo
     private static void listarAbrigo() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos";
@@ -121,11 +122,14 @@ public class AdopetConsoleApplication {
 
         HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        //Extrair funcao abaixo e criar o método dispararRequisicaoGet()
+
+        // HttpRequest request = HttpRequest.newBuilder()
+        //         .uri(URI.create(uri))
+        //         .method("GET", HttpRequest.BodyPublishers.noBody())
+        //         .build();
+        // HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.statusCode();
         if (statusCode == 404 || statusCode == 500) {
             System.out.println("ID ou nome não cadastrado!");
@@ -201,6 +205,17 @@ public class AdopetConsoleApplication {
             }
         }
         reader.close();
+
+    }
+
+    private static void dispararRequisicaoGet( String uri){
+
+         HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
 
     }
 
