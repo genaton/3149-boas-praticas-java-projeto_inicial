@@ -65,11 +65,16 @@ public class AdopetConsoleApplication {
     private static void listarAbrigo() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos";
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        HttpResponse<String> response = dispararRequisicaoGet(client, uri);
+
+        //Extrair funcao abaixo e criar o método dispararRequisicaoGet()
+
+        // HttpRequest request = HttpRequest.newBuilder()
+        //         .uri(URI.create(uri))
+        //         .method("GET", HttpRequest.BodyPublishers.noBody())
+        //         .build();
+        // HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String responseBody = response.body();
         JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
         System.out.println("Abrigos cadastrados:");
