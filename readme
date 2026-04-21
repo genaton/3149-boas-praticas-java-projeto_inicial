@@ -4,5 +4,12 @@ java -jar api.jar
 
 Um ponto importante: quando quiser "desligar" a API, basta pressionar Ctrl + C.
 
+Quando o método chamado é de outra classe, ele precisa ser public. O modificador private faz com que o método fique visível apenas em sua classe, logo, ele só pode ser referenciado dentro da mesma. Existem outras regras para modificadores de acesso, sendo elas:
+
+Modificador private: o método só pode ser acessado dentro da mesma classe.
+Modificador public: o método pode ser acessado de qualquer classe.
+Modificador default (sem modificador explícito): o método pode ser acessado apenas por classes que estão no mesmo pacote.
+Modificador protected: o método só pode ser acessado através de herança.
+
 - Princípio SOLID 
 - S: respnsabilidade única.
