@@ -60,6 +60,8 @@ public class AbrigoService {
         }
     }
 
+    // METODOS ABAIXO FORAM PARA PACOTE CLIENT/CLASSE CLIENTHTTPCONFIGURATION
+
     //   private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri)
     //         throws IOException, InterruptedException {
 
