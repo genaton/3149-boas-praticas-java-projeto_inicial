@@ -99,28 +99,28 @@ public class PetService {
 
     }
 
-    private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri)
-            throws IOException, InterruptedException {
+    // private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri)
+    //         throws IOException, InterruptedException {
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+    //     HttpRequest request = HttpRequest.newBuilder()
+    //             .uri(URI.create(uri))
+    //             .method("GET", HttpRequest.BodyPublishers.noBody())
+    //             .build();
+    //     return client.send(request, HttpResponse.BodyHandlers.ofString());
 
-    }
+    // }
 
-    private HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json)
-            throws IOException, InterruptedException {
+    // private HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json)
+    //         throws IOException, InterruptedException {
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri))
-                .header("Content-Type", "application/json")
-                .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
-                .build();
+    //     HttpRequest request = HttpRequest.newBuilder()
+    //             .uri(URI.create(uri))
+    //             .header("Content-Type", "application/json")
+    //             .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
+    //             .build();
 
-        return client.send(request, HttpResponse.BodyHandlers.ofString());
+    //     return client.send(request, HttpResponse.BodyHandlers.ofString());
 
-    }
+    // }
 
 }
