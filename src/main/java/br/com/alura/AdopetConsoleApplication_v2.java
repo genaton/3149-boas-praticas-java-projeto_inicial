@@ -14,7 +14,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
 
-public class AdopetConsoleApplication {
+public class AdopetConsoleApplication_v2 {
 
     public static void main(String[] args) {
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
@@ -34,19 +34,20 @@ public class AdopetConsoleApplication {
                 if (opcaoEscolhida == 1) {
 
                     listarAbrigo();
-
+                    
                 } else if (opcaoEscolhida == 2) {
 
                     cadastrarAbrigo();
 
+                    
                 } else if (opcaoEscolhida == 3) {
 
                     listarPetsDoAbrigo();
-
+                    
                 } else if (opcaoEscolhida == 4) {
 
                     importarPetsDoAbrigo();
-
+                    
                 } else if (opcaoEscolhida == 5) {
                     break;
                 } else {
@@ -60,12 +61,20 @@ public class AdopetConsoleApplication {
         }
     }
 
+    //ainda há duplicacao de código nos métodos abaixo
     private static void listarAbrigo() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos";
 
         HttpResponse<String> response = dispararRequisicaoGet(client, uri);
 
+        //Extrair funcao abaixo e criar o método dispararRequisicaoGet()
+
+        // HttpRequest request = HttpRequest.newBuilder()
+        //         .uri(URI.create(uri))
+        //         .method("GET", HttpRequest.BodyPublishers.noBody())
+        //         .build();
+        // HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String responseBody = response.body();
         JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
         System.out.println("Abrigos cadastrados:");
@@ -95,6 +104,13 @@ public class AdopetConsoleApplication {
         String uri = "http://localhost:8080/abrigos";
 
         HttpResponse<String> response = dispararRequisicaoPost(client, uri, json);
+        // HttpRequest request = HttpRequest.newBuilder()
+        //         .uri(URI.create(uri))
+        //         .header("Content-Type", "application/json")
+        //         .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
+        //         .build();
+
+        // HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.statusCode();
         String responseBody = response.body();
         if (statusCode == 200) {
@@ -116,10 +132,17 @@ public class AdopetConsoleApplication {
 
         HttpResponse<String> response = dispararRequisicaoGet(client, uri);
 
+        //Extrair funcao abaixo e criar o método dispararRequisicaoGet()
+
+        // HttpRequest request = HttpRequest.newBuilder()
+        //         .uri(URI.create(uri))
+        //         .method("GET", HttpRequest.BodyPublishers.noBody())
+        //         .build();
+        // HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.statusCode();
         if (statusCode == 404 || statusCode == 500) {
             System.out.println("ID ou nome não cadastrado!");
-
+            // continue;
         }
         String responseBody = response.body();
         JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
@@ -148,7 +171,7 @@ public class AdopetConsoleApplication {
             reader = new BufferedReader(new FileReader(nomeArquivo));
         } catch (IOException e) {
             System.out.println("Erro ao carregar o arquivo: " + nomeArquivo);
-            
+            // continue;
         }
         String line;
         while ((line = reader.readLine()) != null) {
@@ -171,7 +194,14 @@ public class AdopetConsoleApplication {
             HttpClient client = HttpClient.newHttpClient();
             String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
             HttpResponse<String> response = dispararRequisicaoPost(client, uri, json);
+            
+            // HttpRequest request = HttpRequest.newBuilder()
+            //         .uri(URI.create(uri))
+            //         .header("Content-Type", "application/json")
+            //         .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
+            //         .build();
 
+            // HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             int statusCode = response.statusCode();
             String responseBody = response.body();
             if (statusCode == 200) {
@@ -189,19 +219,17 @@ public class AdopetConsoleApplication {
 
     }
 
-    private static HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri)
-            throws IOException, InterruptedException {
+    private static HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri) throws IOException, InterruptedException{
 
-        HttpRequest request = HttpRequest.newBuilder()
+         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         return client.send(request, HttpResponse.BodyHandlers.ofString());
 
-    }
 
-    private static HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json)
-            throws IOException, InterruptedException {
+    }
+private static HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json) throws IOException, InterruptedException{
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
@@ -211,5 +239,6 @@ public class AdopetConsoleApplication {
 
         return client.send(request, HttpResponse.BodyHandlers.ofString());
 
-    }
+    
+}
 }
