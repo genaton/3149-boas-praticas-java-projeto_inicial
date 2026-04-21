@@ -3,3 +3,6 @@ A aplicação será integrada com uma API externa, que será a responsável por 
 java -jar api.jar
 
 Um ponto importante: quando quiser "desligar" a API, basta pressionar Ctrl + C.
+
+- Princípio SOLID 
+- S: respnsabilidade única.
