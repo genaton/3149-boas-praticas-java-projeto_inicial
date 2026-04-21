@@ -8,14 +8,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import br.com.alura.client.ClientHttpConfiguration;
 import br.com.alura.domain.Pet;
 import tools.jackson.databind.ObjectMapper;
 
-public class PetService {
+public class PetService_v2 {
     private ClientHttpConfiguration client;
 
-    public PetService(ClientHttpConfiguration client) {
+    public PetService_v2(ClientHttpConfiguration client) {
         this.client = client;
     }
 
@@ -34,7 +39,7 @@ public class PetService {
 
         }
         String responseBody = response.body();
-
+        // JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
         Pet[] pets = new ObjectMapper().readValue(responseBody, Pet[].class);
 
         List<Pet> petList = Arrays.stream(pets).toList();
@@ -51,6 +56,16 @@ public class PetService {
 
         }
 
+        // for (JsonElement element : jsonArray) {
+        // JsonObject jsonObject = element.getAsJsonObject();
+        // long id = jsonObject.get("id").getAsLong();
+        // String tipo = jsonObject.get("tipo").getAsString();
+        // String nome = jsonObject.get("nome").getAsString();
+        // String raca = jsonObject.get("raca").getAsString();
+        // int idade = jsonObject.get("idade").getAsInt();
+        // System.out.println(id + " - " + tipo + " - " + nome + " - " + raca + " - " +
+        // idade + " ano(s)");
+        // }
     }
 
     public void importarPetsDoAbrigo() throws IOException, InterruptedException {
@@ -79,6 +94,14 @@ public class PetService {
             Float peso = Float.parseFloat(campos[5]);
 
             Pet pet = new Pet(tipo, nome, raca, idade, cor, peso);
+
+            // JsonObject json = new JsonObject();
+            // json.addProperty("tipo", tipo.toUpperCase());
+            // json.addProperty("nome", nome);
+            // json.addProperty("raca", raca);
+            // json.addProperty("idade", idade);
+            // json.addProperty("cor", cor);
+            // json.addProperty("peso", peso);
 
             String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
             HttpResponse<String> response = client.dispararRequisicaoPost(uri, pet);

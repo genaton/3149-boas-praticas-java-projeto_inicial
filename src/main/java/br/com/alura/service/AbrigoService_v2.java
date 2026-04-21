@@ -6,15 +6,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import br.com.alura.client.ClientHttpConfiguration;
 import br.com.alura.domain.Abrigo;
 import tools.jackson.databind.ObjectMapper;
 
-public class AbrigoService {
+public class AbrigoService_v2 {
 
     private ClientHttpConfiguration client;
 
-    public AbrigoService(ClientHttpConfiguration client) {
+    public AbrigoService_v2(ClientHttpConfiguration client) {
         this.client = client;
     }
 
@@ -25,6 +30,7 @@ public class AbrigoService {
 
         String responseBody = response.body();
 
+        // JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
         Abrigo[] abrigos = new ObjectMapper().readValue(responseBody, Abrigo[].class);
 
         List<Abrigo> abrigoList = Arrays.stream(abrigos).toList();
@@ -48,6 +54,12 @@ public class AbrigoService {
 
         Abrigo abrigo = new Abrigo(nome, telefone, email);
 
+        // JsonObject json = new JsonObject();
+        // json.addProperty("nome", nome);
+        // json.addProperty("telefone", telefone);
+        // json.addProperty("email", email);
+
+        // HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos";
 
         HttpResponse<String> response = client.dispararRequisicaoPost(uri, abrigo);
