@@ -123,6 +123,8 @@ public class AdopetConsoleApplication {
         HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
 
+        HttpResponse<String> response = dispararRequisicaoGet(client, uri);
+
         //Extrair funcao abaixo e criar o método dispararRequisicaoGet()
 
         // HttpRequest request = HttpRequest.newBuilder()
@@ -208,13 +210,13 @@ public class AdopetConsoleApplication {
 
     }
 
-    private static void dispararRequisicaoGet( String uri){
+    private static HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri) throws IOException, InterruptedException{
 
          HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
 
 
     }
