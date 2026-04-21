@@ -5,6 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import br.com.alura.service.AbrigoService;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,6 +19,9 @@ import java.util.Scanner;
 public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
+
+        AbrigoService abrigoService = new AbrigoService();
+
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
         try {
             int opcaoEscolhida = 0;
@@ -33,11 +38,11 @@ public class AdopetConsoleApplication {
 
                 if (opcaoEscolhida == 1) {
 
-                    listarAbrigo();
+                    abrigoService.listarAbrigo();
 
                 } else if (opcaoEscolhida == 2) {
 
-                    cadastrarAbrigo();
+                    abrigoService.cadastrarAbrigo();
 
                 } else if (opcaoEscolhida == 3) {
 
