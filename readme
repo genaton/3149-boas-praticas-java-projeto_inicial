@@ -11,5 +11,8 @@ Modificador public: o método pode ser acessado de qualquer classe.
 Modificador default (sem modificador explícito): o método pode ser acessado apenas por classes que estão no mesmo pacote.
 Modificador protected: o método só pode ser acessado através de herança.
 
+Para importar pets do abrigo: rode a aplicação, digite a opcao 4, informe o id do abrigo e informe o nome do arquivo csv com os dados dos pets.
+Neste caso, o pets.csv.
+
 - Princípio SOLID 
 - S: respnsabilidade única.
