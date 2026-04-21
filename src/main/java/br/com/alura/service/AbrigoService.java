@@ -12,13 +12,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import br.com.alura.client.ClientHttpConfiguration;
+
 public class AbrigoService {
 
-     public void listarAbrigo() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
+    private ClientHttpConfiguration client;
+
+    public AbrigoService(ClientHttpConfiguration client) {
+        this.client = client;
+    }
+
+    public void listarAbrigo() throws IOException, InterruptedException {
         String uri = "http://localhost:8080/abrigos";
 
-        HttpResponse<String> response = dispararRequisicaoGet(client, uri);
+        HttpResponse<String> response = client.dispararRequisicaoGet(uri);
 
         String responseBody = response.body();
         JsonArray jsonArray = JsonParser.parseString(responseBody).getAsJsonArray();
@@ -45,10 +52,10 @@ public class AbrigoService {
         json.addProperty("telefone", telefone);
         json.addProperty("email", email);
 
-        HttpClient client = HttpClient.newHttpClient();
+        // HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos";
 
-        HttpResponse<String> response = dispararRequisicaoPost(client, uri, json);
+        HttpResponse<String> response = client.dispararRequisicaoPost(uri, json);
         int statusCode = response.statusCode();
         String responseBody = response.body();
         if (statusCode == 200) {
@@ -62,27 +69,29 @@ public class AbrigoService {
 
     // METODOS ABAIXO FORAM PARA PACOTE CLIENT/CLASSE CLIENTHTTPCONFIGURATION
 
-    //   private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri)
-    //         throws IOException, InterruptedException {
+    // private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String
+    // uri)
+    // throws IOException, InterruptedException {
 
-    //     HttpRequest request = HttpRequest.newBuilder()
-    //             .uri(URI.create(uri))
-    //             .method("GET", HttpRequest.BodyPublishers.noBody())
-    //             .build();
-    //     return client.send(request, HttpResponse.BodyHandlers.ofString());
+    // HttpRequest request = HttpRequest.newBuilder()
+    // .uri(URI.create(uri))
+    // .method("GET", HttpRequest.BodyPublishers.noBody())
+    // .build();
+    // return client.send(request, HttpResponse.BodyHandlers.ofString());
 
     // }
 
-    // private HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json)
-    //         throws IOException, InterruptedException {
+    // private HttpResponse<String> dispararRequisicaoPost(HttpClient client, String
+    // uri, JsonObject json)
+    // throws IOException, InterruptedException {
 
-    //     HttpRequest request = HttpRequest.newBuilder()
-    //             .uri(URI.create(uri))
-    //             .header("Content-Type", "application/json")
-    //             .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
-    //             .build();
+    // HttpRequest request = HttpRequest.newBuilder()
+    // .uri(URI.create(uri))
+    // .header("Content-Type", "application/json")
+    // .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
+    // .build();
 
-    //     return client.send(request, HttpResponse.BodyHandlers.ofString());
+    // return client.send(request, HttpResponse.BodyHandlers.ofString());
 
     // }
 

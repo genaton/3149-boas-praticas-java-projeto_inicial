@@ -14,17 +14,23 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class PetService {
+import br.com.alura.client.ClientHttpConfiguration;
 
-     public void listarPetsDoAbrigo() throws IOException, InterruptedException {
+public class PetService {
+    private ClientHttpConfiguration client;
+
+    public PetService(ClientHttpConfiguration client) {
+        this.client = client;
+    }
+
+    public void listarPetsDoAbrigo() throws IOException, InterruptedException {
 
         System.out.println("Digite o id ou nome do abrigo:");
         String idOuNome = new Scanner(System.in).nextLine();
 
-        HttpClient client = HttpClient.newHttpClient();
         String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
 
-        HttpResponse<String> response = dispararRequisicaoGet(client, uri);
+        HttpResponse<String> response = client.dispararRequisicaoGet(uri);
 
         int statusCode = response.statusCode();
         if (statusCode == 404 || statusCode == 500) {
@@ -58,7 +64,7 @@ public class PetService {
             reader = new BufferedReader(new FileReader(nomeArquivo));
         } catch (IOException e) {
             System.out.println("Erro ao carregar o arquivo: " + nomeArquivo);
-            
+
         }
         String line;
         while ((line = reader.readLine()) != null) {
@@ -78,9 +84,9 @@ public class PetService {
             json.addProperty("cor", cor);
             json.addProperty("peso", peso);
 
-            HttpClient client = HttpClient.newHttpClient();
+            
             String uri = "http://localhost:8080/abrigos/" + idOuNome + "/pets";
-            HttpResponse<String> response = dispararRequisicaoPost(client, uri, json);
+            HttpResponse<String> response = client.dispararRequisicaoPost(uri, json);
 
             int statusCode = response.statusCode();
             String responseBody = response.body();
@@ -100,27 +106,29 @@ public class PetService {
     }
     // METODOS ABAIXO FORAM PARA PACOTE CLIENT/CLASSE CLIENTHTTPCONFIGURATION
 
-    // private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri)
-    //         throws IOException, InterruptedException {
+    // private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String
+    // uri)
+    // throws IOException, InterruptedException {
 
-    //     HttpRequest request = HttpRequest.newBuilder()
-    //             .uri(URI.create(uri))
-    //             .method("GET", HttpRequest.BodyPublishers.noBody())
-    //             .build();
-    //     return client.send(request, HttpResponse.BodyHandlers.ofString());
+    // HttpRequest request = HttpRequest.newBuilder()
+    // .uri(URI.create(uri))
+    // .method("GET", HttpRequest.BodyPublishers.noBody())
+    // .build();
+    // return client.send(request, HttpResponse.BodyHandlers.ofString());
 
     // }
 
-    // private HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json)
-    //         throws IOException, InterruptedException {
+    // private HttpResponse<String> dispararRequisicaoPost(HttpClient client, String
+    // uri, JsonObject json)
+    // throws IOException, InterruptedException {
 
-    //     HttpRequest request = HttpRequest.newBuilder()
-    //             .uri(URI.create(uri))
-    //             .header("Content-Type", "application/json")
-    //             .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
-    //             .build();
+    // HttpRequest request = HttpRequest.newBuilder()
+    // .uri(URI.create(uri))
+    // .header("Content-Type", "application/json")
+    // .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
+    // .build();
 
-    //     return client.send(request, HttpResponse.BodyHandlers.ofString());
+    // return client.send(request, HttpResponse.BodyHandlers.ofString());
 
     // }
 

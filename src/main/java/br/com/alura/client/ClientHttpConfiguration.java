@@ -1,9 +1,18 @@
 package br.com.alura.client;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import com.google.gson.JsonObject;
+
 public class ClientHttpConfiguration {
 
-    
-      public HttpResponse<String> dispararRequisicaoGet(HttpClient client, String uri)
+       HttpClient client = HttpClient.newHttpClient();
+        
+      public HttpResponse<String> dispararRequisicaoGet(String uri)
             throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -14,7 +23,7 @@ public class ClientHttpConfiguration {
 
     }
 
-    public HttpResponse<String> dispararRequisicaoPost(HttpClient client, String uri, JsonObject json)
+    public HttpResponse<String> dispararRequisicaoPost(String uri, JsonObject json)
             throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
