@@ -1,6 +1,9 @@
 package br.com.alura.service;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
 
@@ -11,11 +14,11 @@ import com.google.gson.JsonParser;
 
 import br.com.alura.client.ClientHttpConfiguration;
 
-public class AbrigoService {
+public class AbrigoService_v1 {
 
     private ClientHttpConfiguration client;
 
-    public AbrigoService(ClientHttpConfiguration client) {
+    public AbrigoService_v1(ClientHttpConfiguration client) {
         this.client = client;
     }
 
@@ -64,5 +67,32 @@ public class AbrigoService {
         }
     }
 
-   
+    // METODOS ABAIXO FORAM PARA PACOTE CLIENT/CLASSE CLIENTHTTPCONFIGURATION
+
+    // private HttpResponse<String> dispararRequisicaoGet(HttpClient client, String
+    // uri)
+    // throws IOException, InterruptedException {
+
+    // HttpRequest request = HttpRequest.newBuilder()
+    // .uri(URI.create(uri))
+    // .method("GET", HttpRequest.BodyPublishers.noBody())
+    // .build();
+    // return client.send(request, HttpResponse.BodyHandlers.ofString());
+
+    // }
+
+    // private HttpResponse<String> dispararRequisicaoPost(HttpClient client, String
+    // uri, JsonObject json)
+    // throws IOException, InterruptedException {
+
+    // HttpRequest request = HttpRequest.newBuilder()
+    // .uri(URI.create(uri))
+    // .header("Content-Type", "application/json")
+    // .method("POST", HttpRequest.BodyPublishers.ofString(json.toString()))
+    // .build();
+
+    // return client.send(request, HttpResponse.BodyHandlers.ofString());
+
+    // }
+
 }
