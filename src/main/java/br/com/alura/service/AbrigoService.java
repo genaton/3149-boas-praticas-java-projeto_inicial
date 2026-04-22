@@ -1,14 +1,14 @@
 package br.com.alura.service;
 
+import br.com.alura.client.ClientHttpConfiguration;
+import br.com.alura.domain.Abrigo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
-import br.com.alura.client.ClientHttpConfiguration;
-import br.com.alura.domain.Abrigo;
-import tools.jackson.databind.ObjectMapper;
 
 public class AbrigoService {
 
@@ -20,25 +20,27 @@ public class AbrigoService {
 
     public void listarAbrigo() throws IOException, InterruptedException {
         String uri = "http://localhost:8080/abrigos";
-
         HttpResponse<String> response = client.dispararRequisicaoGet(uri);
-
         String responseBody = response.body();
-
         Abrigo[] abrigos = new ObjectMapper().readValue(responseBody, Abrigo[].class);
-
         List<Abrigo> abrigoList = Arrays.stream(abrigos).toList();
+        if (abrigoList.isEmpty()) {
+            System.out.println("Não há abrigos cadastrados");
+        } else {
+            mostrarAbrigos(abrigoList);
+        }
+    }
 
+    private void mostrarAbrigos(List<Abrigo> abrigos) {
         System.out.println("Abrigos cadastrados:");
-        for (Abrigo abrigo : abrigoList) {
-            Long id = abrigo.getId();
+        for (Abrigo abrigo : abrigos) {
+            long id = abrigo.getId();
             String nome = abrigo.getNome();
-            System.out.println(id + " - " + nome);
+            System.out.println(id +" - " +nome);
         }
     }
 
     public void cadastrarAbrigo() throws IOException, InterruptedException {
-
         System.out.println("Digite o nome do abrigo:");
         String nome = new Scanner(System.in).nextLine();
         System.out.println("Digite o telefone do abrigo:");
@@ -49,7 +51,6 @@ public class AbrigoService {
         Abrigo abrigo = new Abrigo(nome, telefone, email);
 
         String uri = "http://localhost:8080/abrigos";
-
         HttpResponse<String> response = client.dispararRequisicaoPost(uri, abrigo);
         int statusCode = response.statusCode();
         String responseBody = response.body();
@@ -61,5 +62,4 @@ public class AbrigoService {
             System.out.println(responseBody);
         }
     }
-
 }
