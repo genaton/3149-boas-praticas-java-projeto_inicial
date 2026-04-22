@@ -18,3 +18,26 @@ Neste caso, o pets.csv.
 - S: respnsabilidade única.
 
 - Uso do design pattern command para refatorar a classe principal.
+
+Durante a refatoração do nosso código, utilizamos o padrão de projeto Command. Este padrão é comumente confundido com outro padrão de projeto: o Strategy. Apesar de ambos serem padrões comportamentais, eles possuem diferenças e servem para casos diferentes. Que tal conhecer as diferenças e prós e contras de cada um?
+
+Tanto o padrão de projeto Command quanto o Strategy são padrões comportamentais, isso significa que eles se concentram na forma como as classes interagem e delegam responsabilidades. No entanto, eles têm propósitos diferentes e são usados em contextos diferentes.
+
+Padrão Command
+O padrão Command é usado para encapsular uma solicitação como um objeto, permitindo parametrizar clientes com diferentes solicitações, enfileirar solicitações, registrar o log de solicitações e até mesmo desfazer as operações. Ele separa o remetente (quem faz a solicitação) do receptor (quem executa a ação), permitindo flexibilidade em adicionar novos comandos e mantendo o acoplamento baixo.
+
+Padrão Strategy:
+O padrão Strategy é usado para definir uma família de algoritmos, encapsulá-los e torná-los intercambiáveis. Isso permite que os algoritmos variem independentemente dos clientes que os usam. Ele é particularmente útil quando você tem várias estratégias ou formas de realizar uma tarefa e deseja escolher dinamicamente a estratégia correta.
+
+Propósitos
+O Command é usado para encapsular solicitações como objetos, permitindo controle e gerenciamento de ações.
+O Strategy é usado para definir algoritmos intercambiáveis, permitindo escolher a estratégia certa em tempo de execução.
+Usos
+Command é frequentemente usado para históricos, filas de comandos e operações desfazer/refazer.
+
+Strategy é usado para escolher entre diferentes algoritmos ou estratégias de execução.
+
+Flexibilidade
+Command tem flexibilidade na execução de ações e histórico de comandos.
+
+Strategy tem flexibilidade na escolha de algoritmos.
