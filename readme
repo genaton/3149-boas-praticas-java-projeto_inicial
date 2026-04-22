@@ -16,3 +16,5 @@ Neste caso, o pets.csv.
 
 - Princípio SOLID 
 - S: respnsabilidade única.
+
+- Uso do design pattern command para refatorar a classe principal.
